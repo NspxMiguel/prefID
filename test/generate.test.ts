@@ -107,9 +107,15 @@ describe("strictPrefix", () => {
     expect(() => strict("usér")).toThrow(/invalid character "é" at index 2/);
   });
 
+  it("names a whole emoji, not half of it", () => {
+    expect(() => strict("ab😀")).toThrow(/invalid character "😀" at index 2/);
+  });
+
   it("allows 63 characters and rejects 64", () => {
     expect(() => strict("a".repeat(63))).not.toThrow();
-    expect(() => strict("a".repeat(64))).toThrow(TypeError);
+    expect(() => strict("a".repeat(64))).toThrow(
+      "prefid: prefix is 64 characters long; strict mode allows at most 63.",
+    );
   });
 
   it("leaves default mode unchanged", () => {

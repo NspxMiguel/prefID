@@ -4,7 +4,7 @@ const NON_ALPHANUMERIC = /[^A-Za-z0-9]/;
 export function assertValidPrefix(
   prefix: string,
   separator: string,
-  strict = false,
+  strict: boolean,
 ): void {
   if (typeof prefix !== "string" || prefix.length === 0) {
     throw new TypeError("prefid: prefix must be a non-empty string.");
@@ -26,7 +26,7 @@ export function assertValidPrefix(
     }
     if (prefix.length > STRICT_MAX_LENGTH) {
       throw new TypeError(
-        `prefid: prefix must be at most ${STRICT_MAX_LENGTH} characters in strict mode.`,
+        `prefid: prefix is ${prefix.length} characters long; strict mode allows at most ${STRICT_MAX_LENGTH}.`,
       );
     }
   }

@@ -68,7 +68,7 @@ import { createId } from "prefid";
 
 const id = createId({ strictPrefix: true });
 id("user"); // => "user_a8Kd0f2bQ1nR7pZ3xW4mT6y"
-id("us er"); // throws: prefix "us er" contains an invalid character " " at index 2.
+id("us er"); // throws TypeError: prefid: prefix "us er" contains an invalid character " " at index 2.
 ```
 
 ## Install

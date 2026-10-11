@@ -38,7 +38,9 @@ export function sizeForEntropy(
     throw new RangeError("prefid: `bits` must be a positive finite number.");
   }
   assertAlphabet(alphabet);
-  return Math.ceil(bits / Math.log2(alphabet.length));
+  const perChar = Math.log2(alphabet.length);
+  const size = Math.floor(bits / perChar);
+  return size * perChar < bits ? size + 1 : size;
 }
 
 export function collisionProbability(
@@ -46,7 +48,9 @@ export function collisionProbability(
   options: IdOptions = {},
 ): number {
   if (typeof count !== "number" || !Number.isFinite(count) || count < 0) {
-    throw new RangeError("prefid: `count` must be a non-negative number.");
+    throw new RangeError(
+      "prefid: `count` must be a non-negative finite number.",
+    );
   }
   const { size, radix } = resolve(options);
   if (count < 2) return 0;

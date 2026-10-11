@@ -19,6 +19,7 @@ describe("entropyBits()", () => {
   it("validates its input", () => {
     expect(() => entropyBits({ size: 0 })).toThrow(RangeError);
     expect(() => entropyBits({ size: 1.5 })).toThrow(RangeError);
+    expect(() => entropyBits({ size: 4097 })).toThrow(RangeError);
     expect(() => entropyBits({ alphabet: "a" })).toThrow(RangeError);
   });
 });
@@ -28,6 +29,12 @@ describe("sizeForEntropy()", () => {
     expect(sizeForEntropy(128)).toBe(22);
     expect(sizeForEntropy(8, "01")).toBe(8);
     expect(sizeForEntropy(9, "01")).toBe(9);
+  });
+
+  it("round-trips the entropy of an existing size", () => {
+    for (let size = 1; size <= 64; size++) {
+      expect(sizeForEntropy(entropyBits({ size }))).toBe(size);
+    }
   });
 
   it("produces a size that createId accepts and that meets the target", () => {
@@ -47,6 +54,10 @@ describe("collisionProbability()", () => {
   it("matches the reference values", () => {
     expect(collisionProbability(1e9) / 4.804e-26).toBeCloseTo(1, 3);
     expect(collisionProbability(1e6, { size: 8 }) / 2.287e-3).toBeCloseTo(1, 2);
+  });
+
+  it("gives 1 / N for exactly two ids", () => {
+    expect(collisionProbability(2) * 62 ** 24).toBeCloseTo(1, 10);
   });
 
   it("never rounds realistic inputs to zero", () => {

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `strictPrefix` option on `createId()` and `createSortableId()`. When `true`, the prefix must be 1-63 ASCII letters or digits, otherwise a `TypeError` names the first offending character. Off by default, so existing behavior is unchanged.
+- `entropyBits(options?)`, `sizeForEntropy(bits, alphabet?)` and `collisionProbability(count, options?)` compute the entropy and birthday-collision probability of an ID configuration. `collisionProbability` works in log space with `Math.expm1`, so realistic inputs do not round to 0.
 
 ## [1.1.2] - 2026-10-09
 

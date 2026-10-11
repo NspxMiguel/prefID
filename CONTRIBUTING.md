@@ -22,6 +22,7 @@ npm install
 | `npm run format`            | Format the codebase with Prettier.                |
 | `npm run format:check`      | Verify formatting (used in CI).                   |
 | `npm run build`             | Build `dist/` with tsup.                          |
+| `npm run lint:package`      | Check the packed tarball with publint and attw.   |
 | `npm run smoke`             | Run the ESM + CJS smoke tests (Node).             |
 | `npm run verify`            | Run all CI checks locally in CI order.            |
 

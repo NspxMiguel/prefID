@@ -62,9 +62,11 @@ jobs:
   # Both tools run against `npm pack` output, not the working tree, so they see
   # what npm would actually publish.
   #
-  # Majors are pinned. An unpinned `npx` gate turns an unrelated tool release
-  # into a red PR, and a gate that goes red for reasons the author cannot act on
-  # is one people learn to ignore. Pinning the major still takes fixes.
+  # Both tools are devDependencies, so their exact versions come from
+  # package-lock.json and Dependabot proposes updates as normal PRs. A gate
+  # that changes without review turns an unrelated tool release into a red PR,
+  # and a gate that goes red for reasons the author cannot act on is one people
+  # learn to ignore.
   pack:
     runs-on: ubuntu-latest
     steps:
@@ -82,6 +84,7 @@ jobs:
       # without it a real packaging fault would still go green.
       - name: Lint package
         run: npm run lint:package
+
   runtimes:
     runs-on: ubuntu-latest
     steps:
